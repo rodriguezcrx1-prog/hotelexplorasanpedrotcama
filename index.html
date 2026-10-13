@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploraciones del desierto de Atacama | Explora</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fff;
+            color: #111;
+            overflow-x: hidden;
+        }
+
+        /* Cabecera Principal */
+        header {
+            background-color: #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 50px;
+            border-bottom: 1px solid #222;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-weight: 700;
+            letter-spacing: 6px;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+            font-size: 13px;
+            font-weight: 500;
+            flex-wrap: wrap;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        nav ul li a:hover {
+            opacity: 0.7;
+        }
+
+        .cta-button {
+            background-color: #fff;
+            color: #000;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 1px;
+            border-radius: 2px;
+        }
+
+        /* Sección Hero */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1547234935-80c7145ec969?q=80&w=1920&auto=format&fit=crop') no-repeat center center/cover;
+            height: 75vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 80px 70px 80px;
+            color: #fff;
+        }
+
+        .hero-content h3 {
+            font-size: 13px;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #e0e0e0;
+        }
+
+        .hero-content h1 {
+            font-size: 56px;
+            font-weight: 300;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: #f1f1f1;
+            font-weight: 300;
+        }
+
+        /* Barra de Navegación Secundaria */
+        .sub-nav {
+            background-color: #fff;
+            color: #000;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 18px 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #eee;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .sub-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .sub-nav a {
+            color: #333;
+            text-decoration: none;
+            padding-bottom: 4px;
+        }
+
+        .sub-nav a.active {
+            color: #000;
+            border-bottom: 2px solid #000;
+        }
+
+        /* Contenido Inicial */
+        .main-content {
+            max-width: 900px;
+            margin: 80px auto;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .main-content h2 {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #111;
+        }
+
+        .main-content p {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 25px;
+        }
+
+        .btn-black {
+            display: inline-block;
+            background-color: #000;
+            color: #fff;
+            padding: 14px 28px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            border-radius: 2px;
+        }
+
+        /* Sección de Habitaciones y Precios */
+        .pricing-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .pricing-section h2 {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .room-card {
+            border: 1px solid #eee;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .room-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .room-info {
+            padding: 25px;
+        }
+
+        .room-info h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .room-info p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .room-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        .room-btn {
+            display: block;
+            text-align: center;
+            background-color: #000;
+            color: #fff;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-radius: 2px;
+        }
+
+        .room-btn:hover {
+            background-color: #333;
+        }
+
+        /* Características */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1100px;
+            margin: 80px auto;
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .feature-item p {
+            font-size: 16px;
+            font-weight: 500;
+            color: #222;
+            line-height: 1.5;
+        }
+
+        /* Bloques de Zonas */
+        .section-block {
+            display: flex;
+            align-items: center;
+            max-width: 1200px;
+            margin: 80px auto;
+            gap: 60px;
+            padding: 0 40px;
+        }
+
+        .section-block.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .section-text {
+            flex: 1.2;
+        }
+
+        .section-text h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #111;
+        }
+
+        .section-text p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .explore-link {
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #111;
+            text-decoration: none;
+        }
+
+        .explore-link:hover {
+            text-decoration: underline;
+        }
+
+        .section-image {
+            flex: 1;
+        }
+
+        .section-image img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* Galería Horizontal */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+            max-width: 1300px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .photo-gallery img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        /* Banner CTA */
+        .cta-banner {
+            background-color: #f8f8f8;
+            padding: 60px 20px;
+            text-align: center;
+            margin: 80px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cta-banner h2 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #111;
+        }
+
+        /* Botón de WhatsApp Titilando / Animado */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            text-decoration: none;
+            font-size: 32px;
+            animation: pulse-whatsapp 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #20ba5a;
+        }
+
+        @keyframes pulse-whatsapp {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                transform: scale(1.08);
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111;
+            color: #bbb;
+            padding: 80px 50px 40px 50px;
+            font-size: 14px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 2fr;
+            gap: 40px;
+            max-width: 1300px;
+            margin: 0 auto 60px auto;
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            font-size: 15px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        .footer-col ul li a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            max-width: 1300px;
+            margin: 0 auto;
+            border-top: 1px solid #333;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        /* ==========================================
+           DISEÑO RESPONSIVO PARA CELULARES (Móviles)
+           ========================================== */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            nav ul {
+                display: none; /* Oculta menú principal largo en celulares para evitar desbordes */
+            }
+
+            .hero {
+                height: 60vh;
+                padding: 0 20px 40px 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .rooms-grid, .features-grid, .footer-grid {
+                grid-template-columns: 1fr; /* Todo pasa a 1 sola columna ordenada */
+                gap: 25px;
+            }
+
+            .section-block, .section-block.reverse {
+                flex-direction: column;
+                gap: 30px;
+                padding: 0 20px;
+            }
+
+            .photo-gallery {
+                grid-template-columns: repeat(2, 1fr); /* Galería de 2 columnas en celular */
+            }
+
+            .footer-grid {
+                padding: 0 10px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabecera Principal -->
+    <header>
+        <div class="logo">E X P L O R A</div>
+        <nav>
+            <ul>
+                <li><a href="#">LOGIAS</a></li>
+                <li><a href="#">EXPEDICIONES</a></li>
+                <li><a href="#">RESERVAS DE CONSERVACIÓN</a></li>
+                <li><a href="#">OFERTAS</a></li>
+                <li><a href="#">SOBRE NOSOTROS</a></li>
+            </ul>
+        </nav>
+        <a href="https://wa.me/56977219193?text=Hola,%20quiero%20consultar%20la%20disponibilidad%20y%20tarifas." class="cta-button" target="_blank" rel="noopener noreferrer">CONSULTA LA DISPONIBILIDAD</a>
+    </header>
+
+    <!-- Sección Hero / Portada (Atacama) -->
+    <section class="hero">
+        <div class="hero-content">
+            <h3>EXPLORACIONES</h3>
+            <h1>Atacama</h1>
+            <p>El desierto de Atacama, Chile</p>
+        </div>
+    </section>
+
+    <!-- Barra de Navegación Secundaria -->
+    <div class="sub-nav">
+        <a href="#">DESIERTO DE ATACAMA</a>
+        <a href="#">RESUMEN</a>
+        <a href="#habitaciones">HABITACIONES Y TARIFAS</a>
+        <a href="#" class="active">EXPLORACIONES</a>
+        <a href="#">RESTAURACIÓN</a>
+        <a href="#">CÓMO LLEGAR</a>
+        <a href="#">CONSEJOS DE VIAJE</a>
+    </div>
+
+    <!-- Introducción -->
+    <div class="main-content">
+        <h2>Aventura a tu manera con nuestras exploraciones en Atacama</h2>
+        <p>Tu estancia en Explora Atacama incluye la elección de decenas de Exploraciones guiadas por expertos en tu estancia.</p>
+        <p>Personalizadas para adaptarse a tu interés y nivel de forma física, estas experiencias de descubrimiento y día completo y medio están diseñadas para grupos pequeños de no más de ocho invitados y están guiadas por guías bilingües certificados de Explora. Elige entre exploraciones clásicas y exclusivas de Explora Signature en cinco zonas únicas, con oportunidades para hacer senderismo, montar en e-bike, escalar e incluso contemplar las estrellas sobre el paisaje de otro mundo de Atacama.</p>
+        <a href="https://wa.me/56977219193?text=Hola,%20quiero%20ver%20todas%20las%20exploraciones." class="btn-black" target="_blank" rel="noopener noreferrer">VER TODAS LAS EXPLORACIONES</a>
+    </div>
+
+    <!-- Sección de Habitaciones y Precios -->
+    <section class="pricing-section" id="habitaciones">
+        <h2>Nuestras Habitaciones y Tarifas</h2>
+        <div class="rooms-grid">
+            <!-- Habitacion 1 -->
+            <div class="room-card">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=600&auto=format&fit=crop" alt="Habitación Tulor">
+                <div class="room-info">
+                    <h3>Habitación Tulor</h3>
+                    <p>Diseñada para integrarse con el paisaje del desierto, ofreciendo máximo confort, silencio y vistas incomparables.</p>
+                    <div class="room-price">Desde $1,200 USD / noche</div>
+                    <a href="https://wa.me/56977219193?text=Hola,%20quiero%20reservar%20la%20Habitaci%C3%B3n%20Tulor." class="room-btn" target="_blank" rel="noopener noreferrer">CONSULTAR POR WHATSAPP</a>
+                </div>
+            </div>
+
+            <!-- Habitacion 2 -->
+            <div class="room-card">
+                <img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?q=80&w=600&auto=format&fit=crop" alt="Suite Salar">
+                <div class="room-info">
+                    <h3>Suite Salar</h3>
+                    <p>Espacios amplios con detalles en madera nativa, cama King size y baño privado con vistas panorámicas al altiplano.</p>
+                    <div class="room-price">Desde $1,650 USD / noche</div>
+                    <a href="https://wa.me/56977219193?text=Hola,%20quiero%20reservar%20la%20Suite%20Salar." class="room-btn" target="_blank" rel="noopener noreferrer">CONSULTAR POR WHATSAPP</a>
+                </div>
+            </div>
+
+            <!-- Habitacion 3 -->
+            <div class="room-card">
+                <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=600&auto=format&fit=crop" alt="Habitación Explorador">
+                <div class="room-info">
+                    <h3>Habitación Explorador</h3>
+                    <p>Acogedora y funcional, ideal para parejas listas para salir a recorrer los volcanes y salares cada mañana.</p>
+                    <div class="room-price">Desde $950 USD / noche</div>
+                    <a href="https://wa.me/56977219193?text=Hola,%20quiero%20reservar%20la%20Habitaci%C3%B3n%20Explorador." class="room-btn" target="_blank" rel="noopener noreferrer">CONSULTAR POR WHATSAPP</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Características -->
+    <div class="features-grid">
+        <div class="feature-item">
+            <div style="font-size: 30px; margin-bottom: 15px;">🚶‍♂️</div>
+            <p>49 exploraciones guiadas incluidas en tu estancia</p>
+        </div>
+        <div class="feature-item">
+            <div style="font-size: 30px; margin-bottom: 15px;">📜</div>
+            <p>Dirigido por las propias guías bilingües certificadas de Explora</p>
+        </div>
+        <div class="feature-item">
+            <div style="font-size: 30px; margin-bottom: 15px;">⛰️</div>
+            <p>Personalizada para cada interés y nivel de forma física</p>
+        </div>
+    </div>
+
+    <!-- 1. Cuenca del salar -->
+    <div class="section-block">
+        <div class="section-text">
+            <h3>1. Cuenca del salar</h3>
+            <p>Geométrico y aparentemente infinito, la salina de Atacama interrumpe abruptamente el continuo cromático del desierto. El crujido de la sal bajo cada paso es arrastrado por el viento, y solo queda adentrarse más en el territorio que te rodea.</p>
+            <p>La parte más baja de esta zona corresponde a la propia Salina de Atacama (2350 m.s.n.m.), una cuenca endorreica que una vez acumuló las aguas y sedimentos de volcanes y montañas durante millones de años.</p>
+            <a href="https://wa.me/56977219193?text=Hola,%20quiero%20información%20de%20la%20Cuenca%20del%20Salar." class="explore-link" target="_blank" rel="noopener noreferrer">Ver exploraciones > de Cuenca del salar</a>
+        </div>
+        <div class="section-image">
+            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" alt="Salar de Atacama">
+        </div>
+    </div>
+
+    <!-- 2. Quebradas Intermedias -->
+    <div class="section-block reverse">
+        <div class="section-text">
+            <h3>2. Quebradas Intermedias</h3>
+            <p>Como si hubieran sido arrancados del manto del desierto, los barrancos de esta zona se crearon durante millones de años por las fuerzas del agua y el viento. Cayendo en el abismo, son esculturas que solo el tiempo podría moldear.</p>
+            <p>Numerosos barrancos conectan las zonas del Altiplano y la Cuenca de las Llanuras Saladas, cruzando el ascenso, mientras que muros volcánicos de piedra y arroyos bordeados de especies de hierbas silvestres riegan modestamente las tierras circundantes.</p>
+            <a href="https://wa.me/56977219193?text=Hola,%20quiero%20información%20de%20Quebradas%20Intermedias." class="explore-link" target="_blank" rel="noopener noreferrer">Ver exploraciones > de Quebradas Intermedias</a>
+        </div>
+        <div class="section-image">
+            <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=800&auto=format&fit=crop" alt="Quebradas Intermedias Atacama">
+        </div>
+    </div>
+
+    <!-- 3. Altiplano -->
+    <div class="section-block">
+        <div class="section-text">
+            <h3>3. Altiplano</h3>
+            <p>El Altiplano existe allí arriba, en algún punto entre las montañas y el cielo. En su interior, un mundo completamente nuevo espera en silencio a los intrépidos exploradores que se aventuran en su camino.</p>
+            <p>Para nosotros, este es un territorio que las palabras simplemente no alcanzan. La zona del Altiplano -o Puna, como se le conoce localmente- se extiende entre 3800 y 4300 m s.n.m. Es una meseta elevada, coronada por imponentes montañas, volcanes y géiseres.</p>
+            <a href="https://wa.me/5656203450?text=Hola,%20quiero%20información%20del%20Altiplano." class="explore-link" target="_blank" rel="noopener noreferrer">Ver exploraciones > en el Altiplano</a>
+        </div>
+        <div class="section-image">
+            <img src="https://images.unsplash.com/photo-1528150366636-f0454a9d0441?q=80&w=800&auto=format&fit=crop" alt="Altiplano Atacama">
+        </div>
+    </div>
+
+    <!-- 4. Montaña -->
+    <div class="section-block reverse">
+        <div class="section-text">
+            <h3>4. Montaña</h3>
+            <p>Estos colosales macizos no solo acaparan minerales, sino que también abarcan expresiones culturales de personas del pasado y del presente. Hachas de misterio, las montañas de Atacama enmarcan su territorio, permaneciendo vigilantes ante todos los que los exploran.</p>
+            <p>Las mejores vistas de Atacama se pueden encontrar alcanzando las cumbres del volcán Licancabur junto con las montañas Kimal, Toco, Láscar, Corona, Soquete, Sairecabur y Colorado.</p>
+            <a href="https://wa.me/56956203450?text=Hola,%20quiero%20información%20de%20Montaña." class="explore-link" target="_blank" rel="noopener noreferrer">Ver exploraciones > de Montaña</a>
+        </div>
+        <div class="section-image">
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop" alt="Montañas de Atacama">
+        </div>
+    </div>
+
+    <!-- 5. Cielo -->
+    <div class="section-block">
+        <div class="section-text">
+            <h3>5. Cielo</h3>
+            <p>Los cielos nocturnos de Atacama son un espectáculo constante. Cuando cae la noche, el cielo cobra vida con el polvo infinito de la Vía Láctea o Río Celestial, como se le conoce en Atacama.</p>
+            <p>Observar las estrellas ha sido un pasatiempo de la humanidad desde el principio de los tiempos, ya que nuestros antepasados a menudo miraban al cielo en busca de respuestas divinas.</p>
+            <a href="https://wa.me/56956203450?text=Hola,%20quiero%20información%20de%20Cielo." class="explore-link" target="_blank" rel="noopener noreferrer">Ver exploraciones > de Cielo</a>
+        </div>
+        <div class="section-image">
+            <img src="https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=800&auto=format&fit=crop" alt="Cielo nocturno Atacama">
+        </div>
+    </div>
+
+    <!-- Galería Horizontal -->
+    <div class="photo-gallery">
+        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400" alt="Atacama">
+        <img src="https://images.unsplash.com/photo-1547234935-80c7145ec969?q=80&w=400" alt="Atacama">
+        <img src="https://images.unsplash.com/photo-1528150366636-f0454a9d0441?q=80&w=400" alt="Atacama">
+        <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=400" alt="Atacama">
+        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=400" alt="Atacama">
+        <img src="https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=400" alt="Atacama">
+    </div>
+
+    <!-- Banner CTA -->
+    <div class="cta-banner">
+        <h2>Reserva tu viaje por el Desierto de Atacama.</h2>
+        <a href="https://wa.me/56956203450?text=Hola,%20quiero%20consultar%20la%20disponibilidad." class="btn-black" target="_blank" rel="noopener noreferrer">CONSULTA LA DISPONIBILIDAD</a>
+    </div>
+
+    <!-- Botón Flotante de WhatsApp Animado (Titilando) -->
+    <a href="https://wa.me/56956203450?text=Hola,%20deseo%20hablar%20con%20un%20asesor." class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Contáctanos por WhatsApp">
+        💬
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>DESTINOS</h4>
+                <ul>
+                    <li><a href="#">Patagonia</a></li>
+                    <li><a href="#">Valle Sagrado de los Incas</a></li>
+                    <li><a href="#">Desierto y Altiplano</a></li>
+                    <li><a href="#">Isla de Pascua</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>RESERVAS DE CONSERVACIÓN</h4>
+                <ul>
+                    <li><a href="#">Reserva de Conservación de Puritama</a></li>
+                    <li><a href="#">Reserva de Conservación Torres del Paine</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>OTRA INFORMACIÓN</h4>
+                <ul>
+                    <li><a href="#">Sobre nosotros</a></li>
+                    <li><a href="#">Colabora con nosotros</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="#">Canal de Reportajes</a></li>
+                </ul>
+            </div>
+            <div class="footer-col" style="grid-column: span 2;">
+                <p style="margin-bottom: 15px; color: #fff;">Si tienes alguna consulta o necesita un presupuesto, por favor contáctenos en los siguientes números:</p>
+                <p style="font-size: 13px; margin-bottom: 5px;">EE. UU. +1 (312) 680-3140</p>
+                <p style="font-size: 13px; margin-bottom: 15px;">Reino Unido 08000 869 054</p>
+                <p style="font-size: 13px; color: #fff;">reserve@explora.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright © Explora 2026 Todos los derechos reservados</p>
+            <p>Certified B Corporation</p>
+        </div>
+    </footer>
+
+</body>
+</html>
